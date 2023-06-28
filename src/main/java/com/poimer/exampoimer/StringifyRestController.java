@@ -7,6 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class StringifyRestController {
 
+    private int lastModifiedStringCharCount = 0;
+
+    @GetMapping("api/modify/length")
+    public int getLastModifiedStringCharCount() {
+        return lastModifiedStringCharCount;
+    }
+
     @GetMapping("api/modify")
     public String getModifiedString(@RequestParam(required = true) String string) {
         String modified = "";
@@ -19,6 +26,7 @@ public class StringifyRestController {
             shouldUppercase = !shouldUppercase;
         }
 
+        lastModifiedStringCharCount = string.length();
         return modified;
     }
 
